@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Verifier</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+<style>
+    body {margin:0; padding:0; font-family:'Roboto', sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; background: linear-gradient(135deg, #6a11cb, #2575fc); color:#fff;}
+    .container{background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.3); width:350px;}
+    h1{ font-weight:700; margin-bottom:30px; font-size:28px;}
+    .custom-file-upload{border:2px dashed #fff; padding:12px 20px; display:inline-block; cursor:pointer; border-radius:10px;}
+    .custom-file-upload:hover{background: rgba(255,255,255,0.2);}
+    #file-name{margin-top:10px; font-size:14px; font-style:italic; min-height:18px;}
+    #uploadBtn{margin-top:20px; padding:12px 25px; font-size:16px; font-weight:600; border:none; border-radius:10px; background:linear-gradient(90deg,#ff512f,#dd2476); color:#fff; cursor:pointer;}
+    #uploadBtn:hover{transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
+    #hashResult{margin-top:20px; padding:15px; background: rgba(255,255,255,0.1); border-radius:10px; word-wrap: break-word; font-size:14px; min-height:50px;}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Certificate Verifier</h1>
+    <label class="custom-file-upload">
+        <input type="file" id="fileInput" accept=".pdf,image/*"/>
+        Choose File (PDF or Image)
+    </label>
+    <div id="file-name">No file chosen</div>
+    <button id="uploadBtn">Upload & Hash</button>
+    <div id="hashResult"></div>
+</div>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("file-name");
+const uploadBtn = document.getElementById("uploadBtn");
+const hashResult = document.getElementById("hashResult");
+
+let selectedFile = null;
+
+fileInput.addEventListener("change", (e)=>{
+    selectedFile = e.target.files[0];
+    if(selectedFile){
+        const validTypes = ["application/pdf","image/png","image/jpeg","image/jpg","image/gif"];
+        if(!validTypes.includes(selectedFile.type)){
+            alert("Invalid file type! Only PDF or image files (jpg, jpeg, png, gif) are allowed.");
+            fileInput.value = "";
+            selectedFile = null;
+            fileName.textContent = "No file chosen";
+            hashResult.textContent = "";
+            return;
+        }
+        fileName.textContent = selectedFile.name;
+        hashResult.textContent = "";
+    } else {
+        fileName.textContent = "No file chosen";
+    }
+});
+
+uploadBtn.addEventListener("click", ()=>{
+    if(!selectedFile){
+        alert("Please select a valid PDF or image file first!");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(){
+        const arrayBuffer = reader.result;
+        const bytes = new Uint8Array(arrayBuffer);
+
+        // Convert Uint8Array to hex string (required by ethers.js)
+        const hexString = "0x" + Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('');
+
+        try{
+            const hash = ethers.utils.keccak256(hexString);
+            hashResult.textContent = `File Hash: ${hash}`;
+        }catch(err){
+            console.error(err);
+            hashResult.textContent = "Error hashing file!";
+        }
+    }
+    reader.readAsArrayBuffer(selectedFile);
+});
+</script>
+</body>
+</html>

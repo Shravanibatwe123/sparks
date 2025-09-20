@@ -1,0 +1,121 @@
+bbody {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9fafb;
+}
+
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: white;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1e3a8a, #0d9488);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.sidebar-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.sidebar-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sidebar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+.sidebar-nav li {
+  margin: 5px 0;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #555;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  background: #f1f5f9;
+  color: #000;
+}
+
+.sidebar-nav a.active {
+  background: #e2e8f0;
+  color: #000;
+  font-weight: bold;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #eee;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #444;
+}
+
+.user-name {
+  margin: 0;
+  font-weight: bold;
+}
+
+.user-role {
+  margin: 0;
+  font-size: 12px;
+  color: #777;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+}
+

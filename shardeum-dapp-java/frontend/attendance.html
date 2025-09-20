@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #6C63FF;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #5548c8;
+            transform: translateY(-3px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #555;
+            min-height: 24px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <h1>Login</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button class="btn" onclick="login()"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+        <div class="message" id="login-message"></div>
+    </div>
+
+    <div class="container hidden" id="attendance-container">
+        <h1>Attendance Tracker</h1>
+        <button class="btn" onclick="markAttendance()"><i class="fa-solid fa-user-check"></i> Mark Attendance</button>
+        <button class="btn" onclick="refreshData()"><i class="fa-solid fa-sync-alt"></i> Refresh</button>
+        <button class="btn" onclick="connectWallet()"><i class="fa-solid fa-wallet"></i> Connect Wallet</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const loginContainer = document.getElementById('login-container');
+        const attendanceContainer = document.getElementById('attendance-container');
+        const loginMessage = document.getElementById('login-message');
+        const message = document.getElementById('message');
+
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Simple validation (replace with real authentication if needed)
+            if(username === "user" && password === "1234") {
+                loginContainer.classList.add('hidden');
+                attendanceContainer.classList.remove('hidden');
+            } else {
+                loginMessage.textContent = "Invalid username or password!";
+                loginMessage.style.color = "#ff0000";
+            }
+        }
+
+        function markAttendance() {
+            message.textContent = "Attendance marked successfully!";
+            message.style.color = "#28a745";
+        }
+
+        function refreshData() {
+            message.textContent = "Data refreshed!";
+            message.style.color = "#007bff";
+        }
+
+        function connectWallet() {
+            message.textContent = "Wallet connected!";
+            message.style.color = "#ff9900";
+        }
+    </script>
+
+</body>
+</html>
